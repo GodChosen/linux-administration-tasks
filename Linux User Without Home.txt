@@ -1,0 +1,15 @@
+## To achieve the assignment, I used the -M flag in creating the user, as it would ensure the user directory won't be created in the home directory.
+
+- Login to the server
+=> ssh username@server-name
+=> sudo su -
+
+- Create user anita
+=> useradd -M anita
+
+- Confirm user is created by inspecting the /etc/passwd file
+=> cat /etc/passwd
+
+- Confirm that user anita has no user directory in home
+=> cd /home/
+=> ls -alh

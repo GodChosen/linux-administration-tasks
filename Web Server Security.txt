@@ -1,0 +1,26 @@
+## To complete the task, I did the following:
+
+- Login to app server 3 as root
+=> ssh username@app-server3
+=> sudo su
+
+- I confirmed the Apache status in the server
+=> systemctl status httpd
+
+- Navigated to the httpd.conf file to make changes
+=> vi /etc/httpd/conf/httpd.conf
+
+/IncludeOptional conf.d/*.conf
+i
+- Click Enter at the end of that line and add the following
+
+=> ServerSignature Off
+=> ServerTokens Prod
+=> Esc
+=> /Options Indexes FollowSymLinks
+=> delete 'Indexes' from the line above
+=> :wq
+
+- Start httpd service
+=> systemctl start httpd
+

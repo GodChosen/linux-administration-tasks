@@ -1,0 +1,51 @@
+## To perform the given task, I performed the actions below:
+
+- Login to the database server as root
+=> ssh username@appserver1
+=> sudo su
+
+- Install PostgreSQL on database server
+=> yum -y install Postgresql-server postgresql-contrib
+
+- Initiate PostgreSQL after installation
+=> postgresql-setup initdb
+
+- Enable, start and confirm the status of PostgreSQL
+=> systemctl enable postgresql
+=> systemctl start postgresql
+=> systemctl status postgresql
+
+- Login to PostgreSQL, create a user and database, as well as grant permission
+=> sudo -u postgres psql
+=> CREATE USER kodekloud_top WITH PASSWORD 'dCV3szSGNA';
+=> CREATE DATABASE kodekloud_db3;
+=> GRANT ALL PRIVILEGES ON DATABASE "kodekloud_db3" to kodekloud_top;
+=> \q
+
+- Open and edit PostgreSQL configuration file
+=> vi /var/lib/pgsql/data/postgresql.conf
+- uncomment the line "#listen_addresses = 'localhost'"
+=> listen_addresses = 'localhost' 
+
+- Open and edit the configuration file "pg_hba.conf"
+=> vi /var/lib/pgsql/data/pg_hba.conf
+- Paste the following lines at the bottom of the file
+
+# METHOD can be "trust", "reject", "md5", "password", "gss", "sspi",
+
+# "password" sends passwords in clear text; "md5" is preferred since
+
+local   all             all                                     md5
+
+host    all             all             127.0.0.1/32            md5
+
+host    all             all             ::1/128                 md5
+
+
+- Restart PostgreSQL and check the status
+=> systemctl restart postgresql && systemctl status postgresql
+
+- Confirm the task is completed successfully
+=> psql -U kodekloud_top -d kodekloud_db3 -h 127.0.0.1 -W
+=> \q
+=> psql -U kodekloud_top -d kodekloud_db3 -h localhost -W 

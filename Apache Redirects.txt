@@ -1,0 +1,38 @@
+## To configure Apache and setup the redirect, I performed the following:
+
+- Login to server 2 as root
+=> ssh username@server2
+=> sudo su
+
+- Confirm Apache is installed 
+=> rpm -qa | grep httpd
+
+- Configure Apache to listen in port 6300
+=> vi /etc/httpd/conf/httpd.conf
+=> /Listen
+=> i
+=> Change Listen port to Listen 6300
+=> Esc
+=> :wq
+
+- Set up the redirects
+=> vi /etc/httpd/conf.d/main.conf
+=> i
+=> Enter the following
+
+<VirtualHost *:6300>
+  ServerName stapp02.stratos.xfusioncorp.com
+  Redirect permanent / http://www.stapp02.stratos.xfusioncorp.com:6300/
+</VirtualHost>
+
+<VirtualHost *:6300>
+  ServerName www.stapp02.stratos.xfusioncorp.com
+  Redirect 302 /blog/ http://www.stapp02.stratos.xfusioncorp.com:6300/news/
+</VirtualHost>
+
+=> Esc
+=> :wq
+
+- Restart & enable httpd
+=> systemctl restart httpd
+=> systemctl enable httpd

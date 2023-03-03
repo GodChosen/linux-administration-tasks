@@ -1,0 +1,20 @@
+## To setup NTP on app server 2, I used yum package installer to install ntp and added the provided ntp server 1.sg.pool.ntp.org to the /etc/ntp.conf file.
+
+- Login to app server 2 as root
+=> ssh username@server2
+=> sudo su
+
+- Check if ntp package is installed already
+=> rpm -qa | grep ntp
+
+- Install ntp package on app server 2
+=> yum install ntp -y
+
+- Check the status of ntp
+=> systemctl status ntpd
+
+- As ntp is disabled, enable it
+=> systemctl enable ntp 
+
+
+Note: I did not start ntp because of the instructions not to start, restart or stop it.

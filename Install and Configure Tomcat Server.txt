@@ -1,0 +1,29 @@
+## To perform the given task, I performed the actions below:
+
+- Copy the ROOT.war file from the Jump server to sever 1
+=> scp /tmp/ROOT.war username@server1:/tmp
+
+- Login to the app server 1 as root
+=> ssh username@appserver1
+=> sudo su
+
+- Install, start, and enable iptables services
+=> yum install -y tomcat
+
+- Change the port in the configuration
+=> vi /usr/share/tomcat/conf/server.xml
+
+- change the port below:
+<Connector port="8086" protocol="HTTP/1.1"
+
+               port="8086" protocol="HTTP/1.1"
+
+- Copy the war file frpom the tmp to tomcat root directory
+=> cp /tmp/ROOT.war /usr/share/tomcat/webapps
+
+- Start the tomcat server and check the status
+=> systemctl start tomcat
+=> systemctl status tomcat
+
+- Confirm the task was completed successfully
+=> curl -i http://stapp01:8086

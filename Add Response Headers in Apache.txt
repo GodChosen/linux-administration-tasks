@@ -1,0 +1,39 @@
+## To perform the given task, I performed the actions below:
+
+- Login to app server 3 as root
+=> ssh username@app-server3
+=> sudo su
+
+- install Apache on server 3
+=> yum install httpd -y
+
+- Change the port & add Headers in the configuration file
+=> vi /etc/httpd/conf/httpd.conf
+=> change port to 6300
+
+Add the follwing headers:
+
+Header set X-XSS-Protection "1; mode=block"
+
+Header always append X-Frame-Options SAMEORIGIN
+
+Header set X-Content-Type-Options nosniff
+
+=> Esc
+=> :wq
+
+- Create the index.html file and add the content given
+=> cd /var/www/html
+=> vi index/html
+Add the content below:
+Welcome to the xFusionCorp Industries!
+
+=> Esc
+=> :wq
+
+- Start and enable Apache service
+=> systemctl start httpd
+=> systemctl enable httpd
+
+- Test that everything is set properly
+=> curl localhost:6300

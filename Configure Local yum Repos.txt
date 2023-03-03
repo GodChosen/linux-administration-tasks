@@ -1,0 +1,27 @@
+## To perform the given task, I performed the actions below:
+
+- Login to backup server as root
+=> ssh username@bkp-server
+=> sudo su
+
+- Confirm that yum is installed
+=> ll /packages/downloaded_rpms/ | grep yum
+
+- Create yum repository
+=> cd /etc/yum.repos.d/
+=> vi yum_local.repo
+
+Paste the following into the file:
+[yum_local]
+name=yum_local
+baseurl=file:///packages/downloaded_rpms/
+enabled = 1
+gpgcheck = 0
+
+- Confirm the configuration was correct
+=> ll
+=> yum repolist
+
+- Install samba using the local repo
+=> yum install samba
+

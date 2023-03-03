@@ -1,0 +1,22 @@
+## To fix the issue, I had to follow the steps below:
+
+- Login to the DB server as root
+=> ssh username@server1
+=> sudo su
+
+- Create the directory /dbadmin/data
+=> mkdir -p /dbadmin/data
+
+- Check the directory ownership and permission
+=> ls -al /dbadmin/data
+
+- Change the group ownership of the directory
+=> chown -R root:dbadmin /dbadmin/data
+
+- Change the directory permission for the group
+=> chmod 770 /dbadmin/data
+
+- Confirm directory ownership and permission
+=> ls -al /dbadmin/data
+
+

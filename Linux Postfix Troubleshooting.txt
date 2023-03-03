@@ -1,0 +1,35 @@
+## To fix the issue with the mail server, I checked the status and it was down. On trying to start the server, I got an error which when checked pointed me to the issue. See details of how I fixed it below:
+
+- Login to the Mail server as root
+=> ssh username@server1
+=> sudo su
+
+- Confirmed the status of Psotfix
+=> systemctl status postfix
+
+- As it was disabled and inactive, I tried to start and enable the mariadb service
+=> systemctl start postfix
+=> systemctl enable postfix
+
+As the server failed to start, I checked the logs as follows:
+- Inspected the logs for error message that could point me to the solution
+=> journalctl -xe -u postfix
+
+- I noticed that there were some permission denied leading to error as seen below:
+
+newaliases: fatal: parameter inet_interfaces: no local interface found for ::1
+
+- To solve the issue, I opened the /etc/postfix/mail.cf file
+=> vi /etc/postfix/mail.cf
+
+- Search the file for the line with /inet_interfaces = localhost and add # to the beginning
+=> #inet_interfaces = localhost
+=> Press Escape
+=> Press ':wq'
+
+- I tried to start and enable the postfix service again and was successful
+=> systemctl start postfix
+=> systemctl enable postfix
+
+- I confirmed the status of mariadb service
+=> systemctl status postfix

@@ -1,0 +1,32 @@
+## To configure security per requirements, I performed the foollowing:
+
+- Login to backup server as root
+=> ssh username@bkpserver
+=> sudo su
+
+- Confirm if iptables is installed and running 
+=> systemctl status iptables
+
+- Start httpd service
+=> systemctl status iptables
+
+- Confirm Apache & Nginx port number 
+=> ss -tlnp | grep http
+=> ss -tlnp | grep nginx
+
+- Add the new iptables rules
+=> iptables -A INPUT -p tcp --dport 8091 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+=> iptables -A INPUT -p tcp --dport 3003 -m conntrack --ctstate NEW -j REJECT
+
+- Check for any reject all (input) rule
+=> iptables -L --line-numbers
+
+- If any reject all rule, then run the command below
+=> iptables -R INPUT 5 -p icmp -j REJECT 
+
+- Save rules for persistency across reboot
+=> service iptables save
+
+- Confirm that the nginx port is reachable from the jump server
+=> telnet backup-server 3003
+=> telnet backup-server 8091

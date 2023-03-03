@@ -1,0 +1,31 @@
+## To perform the given task, I performed the actions below:
+
+- Identify the server where Apache is not running
+=> telnet stapp01 5000
+=> telnet stapp02 5000
+=> telnet stapp03 5000
+
+- Login to the app server 1 as root
+=> ssh username@appserver1
+=> sudo su
+
+- Start apache on server 1
+=> systemctl restart httpd
+=> systemctl status httpd
+
+- From the status, it is clear that another service is using the port 5000
+-Find the process using the port
+=> netstat -tulnp
+
+- From the above, the sendmail service is using the port 5000
+- Find out the PID of the process and kill the process
+=> ps -ef | grep sendmail
+=> kill {PID} 
+
+- Restart the apache (httpd) service
+=> systemctl restart httpd
+=> systemctl status httpd
+
+- Logout from server 1
+=> telnet server1-hostname 5000
+

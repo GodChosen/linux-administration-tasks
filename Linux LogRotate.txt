@@ -1,0 +1,51 @@
+## To perform the given task, I performed the actions below:
+
+- Login to app server 1 as root
+=> ssh username@app-server1
+=> sudo su
+
+- install squid on server 1
+=> yum install squid -y
+
+- Configure squid logs rotation to monthly ant to 3 rotation
+=> vi /etc/logrotate.d/squid
+
+/var/log/squid/*.log {
+
+    monthly
+
+    rotate 3
+
+    compress
+
+    notifempty
+
+    missingok
+
+    nocreate
+
+    sharedscripts
+
+    postrotate
+
+      # Asks squid to reopen its logs. (logfile_rotate 0 is set in squid.conf)
+
+      # errors redirected to make it silent if squid is not running
+
+      /usr/sbin/squid -k rotate 2>/dev/null
+
+      # Wait a little to allow Squid to catch up before the logs is compressed
+
+      sleep 1
+
+    endscript
+
+}
+
+
+- Start the squid
+=> systemctl start squid
+=> systemctl enable squid
+
+
+Note: repeat the steps above in server 2 & 3.

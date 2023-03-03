@@ -1,0 +1,17 @@
+## To accomplish the task, copy /tmp/nautilus.txt.gpg file from jump server to App Server 1 at location /home/webapp.
+
+- Copy the file from the jump host server to server 1
+>> scp /tmp/nautilus.txt.gpg username@server1:/tmp
+
+- Log in to server 1
+>> ssh username@server1
+
+- Copy the file from the current directory (/tmp) to the specified directory
+>> scp /tmp/nautilus.txt.gpg /home/webapp
+
+- Confirm that the file is present in the specified directory
+>> cd /home/webapp
+>> ls -al
+
+Note: If scp is not installed in the jump server, install it with the command below
+>> sudo yum install openssh-clients openssh -y

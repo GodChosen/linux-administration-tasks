@@ -1,0 +1,37 @@
+## To fix the issue, I had to follow the steps below:
+
+- Login to the DB server as root
+=> ssh username@server1
+=> sudo su
+
+- Confirmed the status of MariaDB
+=> systemctl status mariadb
+
+- As it was disabled and inactive, I tried to start and enable the mariadb service
+=> systemctl start mariadb
+=> systemctl enable mariadb
+
+As the server failed to start, I checked the logs as follows:
+- Inspected the logs for error message that could point me to the solution
+=> journalctl -xe -u mariadb
+=> cd /var/run | cat mariadb/mariadb.log
+
+- I noticed that there were some permission denied leading to error as seen below
+
+220318  0:45:20 [ERROR] mysqld: Can't create/write to file '/var/run/mariadb/mariadb.pid' (Errcode: 13)
+220318  0:45:20 [ERROR] Can't start server: can't create PID file: Permission denied
+220318 00:45:20 mysqld_safe mysqld from pid file /var/run/mariadb/mariadb.pid ended
+
+- To solve the issue, I checked the ownership and permission of the file
+=> ls -al
+750
+
+- Then I granted write permission to the mysql group
+=> chmod 770 /var/run/mariadb
+
+- I tried to start and enable the mariadb service again and was successful
+=> systemctl start mariadb
+=> systemctl enable mariadb
+
+- I confirmed the status of mariadb service
+=> systemctl status mariadb

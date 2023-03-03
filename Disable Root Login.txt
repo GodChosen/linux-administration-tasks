@@ -1,0 +1,20 @@
+## To disable root login on all app servers, we need to set PermitRootLogin to 'No' in the /etc/ssh/sshd_config file.
+
+- Login to app server as root
+=> ssh username@server1
+=> sudo su -
+
+- Open the /etc/ssh/sshd_config file
+=> vi /etc/ssh/sshd_config
+
+- Edit the PermitRootLogin line
+=> /PermitRootLogin
+=> remove "#" from the line
+=> change "Yes" to "No"
+=> press :wq followed by Enter keys
+
+- Restart sshd 
+=> systemctl restart sshd
+
+
+Note: Repeat the above for app server 2 & 3.

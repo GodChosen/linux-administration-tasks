@@ -1,0 +1,21 @@
+## To install SELinux on app server 1, we use the 'yum install' command as seen below:
+
+- Login to app server 1 as root
+=> ssh username@server1
+=> sudo su
+
+- Install SElinux
+=> yum install policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
+
+- Confirm SElinux status
+=> sestatus
+
+- Change the status from 'Enforcing' to 'Disabled'
+=> vi /etc/selinux/config
+=> /SELINUX=enforcing
+=> Change 'enforcing' to 'disabled'
+=> Press Escape key on the keyboard
+=> Press ':wq' to exit
+
+- Confirm SElinux status again
+=> sestatus

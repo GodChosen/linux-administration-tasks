@@ -1,0 +1,27 @@
+## To perform the given task, I performed the actions below:
+
+- Login to backup server as root
+=> ssh username@bkpserver
+=> sudo su
+
+- Navigate to the Home directory and check the keys
+=> cd /home | ll
+
+- Import public & private keys 
+=> gpg --import public_key.asc
+=> gpg --import private_key.asc
+
+- Confirm the keys are imported
+=> gpg --listkeys
+=> gpg --list-secret-keys
+
+- Encrypt provided file
+=> gpg --encrypt -r kodekloud@kodekloud.com --armor < input-file -o output-file 
+
+- Decrypt provided file
+=> gpg --decrypt input-file > output-file 
+
+- Confirm the new files were created
+=> ll
+
+

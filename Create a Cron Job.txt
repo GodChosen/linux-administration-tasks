@@ -1,0 +1,30 @@
+## To create a cron job, I had to install the cronie package, since it was not installed yet. Then, I started and enabled the crond service as well as confirmed that it was enabled. Then I proceeded to create the cron job for root user.
+
+- Login to app server 1 as root user
+=> ssh username@server1
+=> sudo su
+
+- Confirmed that the cronie package was not installed
+=> rpm -qa | grep croonie
+
+- Installed cronie package on the app server
+=> yum install cronie -y
+
+- Start and Enable crond service
+=> systemctl start crond
+=> systemctl enable crond
+
+- Confirm crond service is up and running
+=> systemctl status crond
+
+- Add the given cron job for the root user
+=> crontab -e
+=> Add '*/5 * * * * echo hello > /tmp/cron_text' to the file
+=> Press Escape key
+=> Press ':wq' to save and exit
+
+- Confirm the cron job has been added for the user
+=> crontab -l
+
+Note: To confirm other users cron jobs, use the following:
+=> crontab -u username -l

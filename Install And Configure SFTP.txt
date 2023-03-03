@@ -1,0 +1,59 @@
+## To perform the given task, I performed the actions below:
+
+- Login to the app server 1 as root
+=> ssh username@appserver1
+=> sudo su
+
+- Create login and password for the user rose
+=> useradd rose
+=> passwd rose
+
+- Create the directory to use as ChrootDirectory
+=> mkdir -p /var/www/nfsshare
+=> chown root:root  /var/www
+=> chmod -R 755 /var/www
+
+- Edit the configuration file '/etc/ssh/sshd_config'
+=> vi /etc/ssh/sshd_config
+
+- Add the following lines to the config file
+
+#subsystem      sftp    /usr/libexec/openssh/sftp-server
+
+Subsystem       sftp    internal-sftp
+
+Match User rose
+
+ForceCommand internal-sftp
+
+PasswordAuthentication yes
+
+ChrootDirectory /var/www/nfsshare
+
+PermitTunnel no
+
+AllowTcpForwarding no
+
+X11Forwarding no
+
+AllowAgentForwarding no
+
+ # Example of overriding settings on a per-user basis
+
+#Match User anoncvs
+
+#       X11Forwarding no
+
+
+=> Esc
+=> :wq
+
+- Restart the sshd service
+=> systemctl restart sshd
+=> systemctl status sshd
+
+- Confirm everything is set correctly
+=> sftp rose@localhost
+=> exit
+=> exit
+=> sftp rose@stapp01

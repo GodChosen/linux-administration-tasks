@@ -1,0 +1,28 @@
+## To perform the given task, I performed the actions below:
+
+- Login to app server 2 as root
+=> ssh username@app-server2
+=> sudo su
+
+- Create the script file
+=> vi /scripts/official_backup.sh
+
+- Populate the content of the script
+=> zip -r /backup/xfusioncorp_official.zip /var/www/html/official
+=> scp -r /backup/xfusioncorp_official.zip clint@stbkp01:/backup/
+=> Esc
+=> :wq
+
+- Add execute permission for all users
+=> chmod +x official_backup.sh
+
+- Logout as root
+- Create public and private key pair
+=> ssh-keygen
+
+- Copy the public key to the backup server
+=> ssh-copy-id username@backup-server
+
+- Execute the script
+=> ./official_backup.sh
+

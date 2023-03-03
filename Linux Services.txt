@@ -1,0 +1,17 @@
+## To install httpd on all app servers and enable it to start on boot, I used the following steps.
+
+- Login to servers as root user
+=> ssh username@server-name
+=> sudo su -
+
+- Install httpd on the server
+=> yum install -y httpd
+=> yum update
+
+- Start httpd on the server
+=> systemctl start httpd
+
+- Enable httpd to start on boot
+=> systemctl enable httpd
+
+Note: Use 'apt' instead of 'yum' for Ubuntu distro.

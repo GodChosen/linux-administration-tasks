@@ -1,0 +1,38 @@
+## To perform the given task, I performed the actions below:
+
+- Login to the app server 1 as root
+=> ssh username@appserver1
+=> sudo su
+
+- Install PWAUTH on server 1
+=> yum --enablerepo=epel -y install mod_authnz_external pwauth
+
+- To edit the configuration file, open the file below
+=> vi /etc/httpd/conf.d/authnz_external.conf
+
+- Paste the following lines into the conf file
+
+<Directory /var/www/html/protected>
+
+AuthType Basic
+
+AuthName "PAM Authentication"
+
+AuthBasicProvider external
+
+AuthExternal pwauth
+
+require valid-user
+
+</Directory>
+
+- Create the protected directory and confirm the content of the index.html file
+=> mkdir -p /var/www/html/protected
+=> cat /var/www/html/protected/index.html 
+
+- Restart the apache (httpd) service
+=> systemctl restart httpd
+=> systemctl status httpd
+
+- Confirm the setup is working as expected 
+=> curl -u rose:B4zNgHA7Ya http://localhost:8080/protected/

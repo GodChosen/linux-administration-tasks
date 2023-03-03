@@ -1,0 +1,24 @@
+## To ensure each server can boot in GUI, we would run the following command on all the App servers in the Stratos Datacenter
+
+- Login to server as root
+>> ssh username@IP
+>> sudo su -
+
+- Confirm the default run level
+>> systemctl get-default
+
+- Confirm the status of graphical.target
+>> systemctl status graphical.target
+
+- Set the run level to graphical.target
+>> systemctl set-default graphical.target
+
+- Start and enable the graphical.target 
+>> systemctl start graphical.target
+>> systemctl enable graphical.target
+
+- Confirm graphical.target is now set as default run level and enabled
+>> systemctl get-default
+>> systemctl status graphical.target
+
+NOTE: Repeat steps above for all App servers

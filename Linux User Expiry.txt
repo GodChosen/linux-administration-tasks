@@ -1,0 +1,12 @@
+
+## To create a user acccount with expiry, I used the -e flag as highlighted below:
+
+- Login to the Mail server as root
+=> ssh username@server1
+=> sudo su
+
+- Create the user 'rose'
+=> useradd -m -e 2021-02-17 rose
+
+- Confirmed the expiry of the user account
+=> chage -l rose

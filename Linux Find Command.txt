@@ -1,0 +1,8 @@
+## To perform the given task, I performed the actions below:
+
+- Login to app server 2 as root
+=> ssh username@app-server2
+=> sudo su
+
+- Find the files and copy to the given location
+=> find /var/www/html/blog -type f -name '*.js' -exec cp --parents {} /blog \;

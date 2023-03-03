@@ -1,0 +1,14 @@
+## To copy the files owned by the specified user to the provided directory, I used the find command and piped the output to the cpio command. See the details below:
+
+- Login to the Mail server as root
+=> ssh username@server3
+=> sudo su
+
+- Navigate to the directory containing the files
+=> cd /home/usersdata
+
+- Confirm the files that is owned by the user 'kirsty'
+=> find . -user kirsty
+
+- Copy those files to the target directory
+=> find . -user kirsty | cpio -pdm /news

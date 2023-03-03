@@ -1,0 +1,10 @@
+## To set up a password-less authentication, I generated a public/private key pair in the jump server and copy the public key to the app servers.
+
+- Generate the key pair in the jump host server
+=> ssh-keygen -t rsa
+
+- Copy the public key to the 3 different app servers
+=> ssh-copy-id username@server1
+=> ssh-copy-id username@server2
+=> ssh-copy-id username@server3
+

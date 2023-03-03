@@ -1,0 +1,16 @@
+## To substitute each occurence of the text 'Random' with the text 'Sonar', I would made use of the 'sed' command.
+
+- Login to the server as root
+=> ssh username@dbserver
+=> sudo su -
+
+- Search for the text 'Random' in the provided file
+=> cat nautilus.xml | grep Random
+
+- Substitute the text 'Random' with the text 'Sonar'
+=> sed -i 's/Random/Sonar/g' /root/nautilus.xml
+
+- Confirm the text Random has been replaced by searching using the command we ran before
+=> cat nautilus.xml | grep Random
+=> cat nautilus.xml | grep Sonar
+
